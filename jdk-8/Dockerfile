@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM andreptb/oracle-java:8
 
 RUN apk add --no-cache curl tar bash
 
