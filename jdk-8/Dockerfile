@@ -2,17 +2,17 @@ FROM andreptb/oracle-java:8
 
 RUN apk add --no-cache curl tar bash
 
-ARG MAVEN_VERSION=3.5.0-alpha-1
+ARG MAVEN_VERSION=3.5.0
 ARG USER_HOME_DIR="/root"
-ARG SHA1=a677b8398313325d6c266279cb8d385bbc9d435d
-ARG BASE_URL=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries
+ARG SHA=beb91419245395bd69a4a6edad5ca3ec1a8b64e41457672dc687c173a495f034
+ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
 
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-$MAVEN_VERSION-bin.tar.gz \
-  && echo "${SHA1}  /tmp/apache-maven.tar.gz" | sha1sum -c - \
+  && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha256sum -c - \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
   && rm -f /tmp/apache-maven.tar.gz \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
   && curl -o /tmp/cbca.crt -X POST https://www.netlock.hu -d 'lang=HU&raw=&ca=cbca&tem=ANONYMOUS%2Fkulcsjegyzok%2Ftanusit_letoltes.tem&typ=browser' \
   && keytool -import -trustcacerts -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt -file /tmp/cbca.crt \
   && rm -f /tmp/cbca.crt
