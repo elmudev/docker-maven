@@ -1,6 +1,6 @@
 FROM andreptb/oracle-java:8
 
-RUN apk add --no-cache curl tar bash
+RUN apk add --no-cache curl tar bash git
 
 ARG MAVEN_VERSION=3.5.0
 ARG USER_HOME_DIR="/root"
