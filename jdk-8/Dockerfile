@@ -13,7 +13,7 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
-  && curl -o /tmp/cbca.crt -X POST https://www.netlock.hu -d 'lang=HU&raw=&ca=cbca&tem=ANONYMOUS%2Fkulcsjegyzok%2Ftanusit_letoltes.tem&typ=browser' \
+  && curl -o /tmp/cbca.crt  https://www.netlock.hu/index.cgi?ca=cbca \
   && keytool -import -trustcacerts -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt -file /tmp/cbca.crt \
   && rm -f /tmp/cbca.crt
 
